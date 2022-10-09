@@ -1,7 +1,6 @@
 ﻿using Common.Interfaces;
 using Common.Models;
 using EmulatedStorage;
-using System.Security.AccessControl;
 using System.Text.Json;
 
 namespace GoodsAS_Console
@@ -12,7 +11,7 @@ namespace GoodsAS_Console
 
         private enum Todo
         { close, post, read, delete }
-        
+
         private static IDataStorage? dataStorage;
 
         private static void Main(string[] args)
@@ -163,7 +162,14 @@ namespace GoodsAS_Console
 
             for (int i = 0; i < 5; i++)
             {
-                Item item = new(i, "Product" + i, "Description" + i, "ProductType" + i, 100 + i);
+                Item item = new()
+                {
+                    Id = i,
+                    Name = "Product" + i,
+                    Description = "Description" + i,
+                    Category = "ProductType" + i,
+                    Cost = 100 + i
+                };
                 dataStorage.postItem(item);
             }
         }
