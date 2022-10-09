@@ -4,13 +4,13 @@ using System.Text.Json;
 
 namespace GoodsAS_Console
 {
-    internal class DataController
+    internal class DataOperations
     {
         private IDataStorage? dataStorage;
 
-        public DataController() { }
+        public DataOperations() { }
 
-        public DataController(IDataStorage? dataStorage)
+        public DataOperations(IDataStorage? dataStorage)
         {
             setDataStorage(dataStorage);
         }
@@ -19,7 +19,7 @@ namespace GoodsAS_Console
         {
             this.dataStorage = dataStorage;
             defaultFillTable();
-            readTable();
+            printTable();
         }
 
         private void defaultFillTable()
@@ -65,9 +65,7 @@ namespace GoodsAS_Console
             if (dataStorage == null) return;
 
             Console.WriteLine("Posting new item");
-
-            Item item = new();
-            bool itemBuildRes = true;
+            Item? item = new();
             foreach (var prop in typeof(Item).GetProperties())
             {
                 string name = prop.Name;
@@ -89,7 +87,7 @@ namespace GoodsAS_Console
                     }
                     else
                     {
-                        itemBuildRes = false;
+                        item = null;
                         break;
                     }
                 }
@@ -98,19 +96,21 @@ namespace GoodsAS_Console
                     prop.SetValue(item, input);
                 }
             }
-            bool res = itemBuildRes ? dataStorage.postItem(item) : false;
+
+            bool res = item != null ? dataStorage.postItem(item) : false;
+
             Console.WriteLine(res ? "Posted" : "Error");
             Console.WriteLine();
         }
 
-        public void readTable()
+        public void printTable()
         {
             if (dataStorage == null) return;
+            var itemsList = dataStorage.getItems();
 
             Console.WriteLine("Printing table:");
-            var res = dataStorage.getItems();
             Console.WriteLine("---");
-            foreach (var item in res)
+            foreach (var item in itemsList)
             {
                 Console.WriteLine(JsonSerializer.Serialize(item) + "\n---");
             }

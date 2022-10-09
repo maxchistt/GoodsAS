@@ -7,13 +7,13 @@ namespace GoodsAS_Console
         private static string Title = "GoodsAS console app";
 
         private enum Todo
-        { close, post, read, delete }
+        { close, post, print, delete }
 
-        private static DataController? controller;
+        private static DataOperations? controller;
 
         private static void Main(string[] args)
         {
-            controller = new DataController();
+            controller = new DataOperations();
 
             Console.WriteLine(Title + "\n");
 
@@ -44,8 +44,8 @@ namespace GoodsAS_Console
                                 controller.deleteItem();
                                 break;
 
-                            case Todo.read:
-                                controller.readTable();
+                            case Todo.print:
+                                controller.printTable();
                                 break;
 
                             case Todo.post:
@@ -73,7 +73,7 @@ namespace GoodsAS_Console
             string text = "Enter keys for next actions:\n";
 
             text += $"To post item      {(int)Todo.post}\n";
-            text += $"To read table     {(int)Todo.read}\n";
+            text += $"To print table    {(int)Todo.print}\n";
             text += $"To delete item    {(int)Todo.delete}\n";
             text += $"To close          Esc\\Enter\n";
 
