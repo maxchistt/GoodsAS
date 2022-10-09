@@ -1,8 +1,8 @@
-﻿using GoodsAS.Models;
+﻿using Common.Models;
 
-namespace GoodsAS.Interfaces
+namespace Common.Interfaces
 {
-    internal interface IDataStorage
+    public interface IDataStorage
     {
         Item? getItemById(int Id);
 

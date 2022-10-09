@@ -1,9 +1,10 @@
-﻿using GoodsAS.Interfaces;
-using GoodsAS.Models;
-using GoodsAS.Storage;
+﻿using Common.Interfaces;
+using Common.Models;
+using EmulatedStorage;
+using System.Security.AccessControl;
 using System.Text.Json;
 
-namespace GoodsAS
+namespace GoodsAS_Console
 {
     internal class Program
     {
@@ -11,12 +12,12 @@ namespace GoodsAS
 
         private enum Todo
         { close, post, read, delete }
-
+        
         private static IDataStorage? dataStorage;
 
         private static void Main(string[] args)
         {
-            dataStorage = new EmulatedStorage();
+            dataStorage = new EmulatedDataStorage();
 
             Console.WriteLine(Title + "\n");
 

@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoodsAS", "GoodsAS\GoodsAS.csproj", "{40BE9692-7682-430F-9ED1-64D417DD67DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoodsAS Console", "GoodsAS\GoodsAS Console.csproj", "{40BE9692-7682-430F-9ED1-64D417DD67DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{477A45CE-5E8B-4BD3-B899-377573BF345E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmulatedStorage", "EmulatedStorage\EmulatedStorage.csproj", "{73FE4E86-531D-4D8A-8B2D-3FF018C399A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{40BE9692-7682-430F-9ED1-64D417DD67DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40BE9692-7682-430F-9ED1-64D417DD67DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40BE9692-7682-430F-9ED1-64D417DD67DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{477A45CE-5E8B-4BD3-B899-377573BF345E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{477A45CE-5E8B-4BD3-B899-377573BF345E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{477A45CE-5E8B-4BD3-B899-377573BF345E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{477A45CE-5E8B-4BD3-B899-377573BF345E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73FE4E86-531D-4D8A-8B2D-3FF018C399A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73FE4E86-531D-4D8A-8B2D-3FF018C399A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73FE4E86-531D-4D8A-8B2D-3FF018C399A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73FE4E86-531D-4D8A-8B2D-3FF018C399A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

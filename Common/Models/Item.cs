@@ -1,6 +1,6 @@
-﻿namespace GoodsAS.Models
+﻿namespace Common.Models
 {
-    internal class Item
+    public class Item
     {
         public Item()
         {

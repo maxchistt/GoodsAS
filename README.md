@@ -1,1 +1,1 @@
-# GoodsAS
+# Goods Accounting System

@@ -1,15 +1,15 @@
-﻿using GoodsAS.Interfaces;
-using GoodsAS.Models;
+﻿using Common.Interfaces;
+using Common.Models;
 using System.Data;
 using System.Reflection;
 
-namespace GoodsAS.Storage
+namespace EmulatedStorage
 {
-    internal class EmulatedStorage : IDataStorage
+    public class EmulatedDataStorage : IDataStorage
     {
         private DataTable table = new DataTable("Goods");
 
-        public EmulatedStorage()
+        public EmulatedDataStorage()
         {
             SetupTableColumns();
         }
