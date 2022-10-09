@@ -22,8 +22,13 @@ namespace GoodsAS_Console
 
             defaultFillTable();
             readTable();
-            writeInsruction();
 
+            startInteractionProcess();
+        }
+
+        private static void startInteractionProcess()
+        {
+            writeInsruction();
             while (true)
             {
                 var input = Console.ReadKey(true);
