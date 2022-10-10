@@ -9,15 +9,11 @@ namespace GoodsAS_Console
         private enum Todo
         { close, post, print, delete }
 
-        private static DataOperations? controller;
-
         private static void Main(string[] args)
         {
-            controller = new DataOperations();
-
             Console.WriteLine(Title + "\n");
 
-            controller.setDataStorage(new EmulatedDataStorage());
+            DataOperations.setDataStorage(new EmulatedDataStorage());
 
             startInteractionProcess();
         }
@@ -33,22 +29,19 @@ namespace GoodsAS_Console
 
                 if (int.TryParse(input.KeyChar.ToString(), out Num) && Enum.IsDefined(typeof(Todo), Num))
                 {
-                    if (controller != null)
+                    switch ((Todo)Num)
                     {
-                        switch ((Todo)Num)
-                        {
-                            case Todo.delete:
-                                controller.deleteItem();
-                                break;
+                        case Todo.delete:
+                            DataOperations.deleteItem();
+                            break;
 
-                            case Todo.print:
-                                controller.printTable();
-                                break;
+                        case Todo.print:
+                            DataOperations.printTable();
+                            break;
 
-                            case Todo.post:
-                                controller.postItem();
-                                break;
-                        }
+                        case Todo.post:
+                            DataOperations.postItem();
+                            break;
                     }
                 }
                 else if (input.Key == ConsoleKey.Enter || input.Key == ConsoleKey.Escape)

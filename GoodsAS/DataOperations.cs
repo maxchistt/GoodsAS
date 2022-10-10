@@ -4,25 +4,18 @@ using System.Text.Json;
 
 namespace GoodsAS_Console
 {
-    internal class DataOperations
+    internal static class DataOperations
     {
-        private IDataStorage? dataStorage;
+        private static IDataStorage? dataStorage;
 
-        public DataOperations() { }
-
-        public DataOperations(IDataStorage? dataStorage)
+        public static void setDataStorage(IDataStorage? dataStorage)
         {
-            setDataStorage(dataStorage);
-        }
-
-        public void setDataStorage(IDataStorage? dataStorage)
-        {
-            this.dataStorage = dataStorage;
+            DataOperations.dataStorage = dataStorage;
             defaultFillTable();
             printTable();
         }
 
-        private void defaultFillTable()
+        private static void defaultFillTable()
         {
             if (dataStorage == null) return;
 
@@ -40,7 +33,7 @@ namespace GoodsAS_Console
             }
         }
 
-        public void deleteItem()
+        public static void deleteItem()
         {
             if (dataStorage == null) return;
 
@@ -60,7 +53,7 @@ namespace GoodsAS_Console
             Console.WriteLine();
         }
 
-        public void postItem()
+        public static void postItem()
         {
             if (dataStorage == null) return;
 
@@ -103,7 +96,7 @@ namespace GoodsAS_Console
             Console.WriteLine();
         }
 
-        public void printTable()
+        public static void printTable()
         {
             if (dataStorage == null) return;
             var itemsList = dataStorage.getItems();
