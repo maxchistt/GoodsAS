@@ -1,16 +1,17 @@
 ﻿using Common.Interfaces;
 using Common.Models;
 using System.Data;
-using System.Reflection;
 
 namespace EmulatedStorage
 {
     public class EmulatedDataStorage : IDataStorage
     {
-        private DataTable table = new DataTable("Goods");
+        private DataSet dataSet = new DataSet("EmulatedDatabase");
+        private DataTable table;
 
         public EmulatedDataStorage()
         {
+            table = dataSet.Tables.Add("Items");
             TableConverter.SetupTableColumns(ref table, typeof(Item));
         }
 
