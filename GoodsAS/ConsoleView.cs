@@ -27,8 +27,8 @@ namespace GoodsAS_Console
             if (input == null) return null;
 
             int Num;
-            bool isNum = int.TryParse(input.Trim(), out Num);
-            return isNum ? Num : null;
+
+            return int.TryParse(input.Trim(), out Num) ? Num : null;
         }
 
         public Item? getItem()
@@ -48,9 +48,8 @@ namespace GoodsAS_Console
                 if (type == typeof(int) || type == typeof(double) || type == typeof(float))
                 {
                     double Num;
-                    bool isNum = double.TryParse(input, out Num);
 
-                    if (isNum)
+                    if (double.TryParse(input, out Num))
                     {
                         prop.SetValue(item, Convert.ChangeType(Num, prop.PropertyType));
                     }
