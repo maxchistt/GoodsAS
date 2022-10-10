@@ -11,72 +11,10 @@ namespace EmulatedStorage
 
         public EmulatedDataStorage()
         {
-            SetupTableColumns(ref table, typeof(Item));
+            TableColsSetter.SetupTableColumns(ref table, typeof(Item));
         }
 
-        private void SetupTableColumns(ref DataTable table, Type modelType)
-        {
-            var primaryKeys = new List<DataColumn>();
-            foreach (var prop in modelType.GetProperties())
-            {
-                var name = prop.Name;
-                var type = prop.PropertyType;
-                var col = table.Columns.Add(name, type);
-                if ((name == "Id" || name == "id") && type == typeof(int)) primaryKeys.Add(col);
-            }
-            table.PrimaryKey = primaryKeys.ToArray();
-        }
-
-        private bool CheckСomparability(Type type, in DataTable table)
-        {
-            var cols = table.Columns;
-
-            if (cols.Count == type.GetProperties().Count())
-            {
-                foreach (DataColumn col in cols)
-                {
-                    var prop = type.GetProperty(col.ColumnName);
-                    if (prop == null || prop.PropertyType != col.DataType) return false;
-                }
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private DataRow? ConvItemToRow(Item item)
-        {
-            if (!CheckСomparability(typeof(Item), in table)) return null;
-
-            DataRow? row = table.NewRow();
-
-            foreach (DataColumn col in row.Table.Columns)
-            {
-                var prop = item.GetType().GetProperty(col.ColumnName);
-                if (prop != null) row[col.ColumnName] = prop.GetValue(item, null);
-            }
-
-            return row;
-        }
-
-        private Item? ConvRowToItem(DataRow row)
-        {
-            if (!CheckСomparability(typeof(Item), in table)) return null;
-
-            Item? item = new();
-
-            foreach (PropertyInfo prop in typeof(Item).GetProperties())
-            {
-                var col = row.Table.Columns[prop.Name];
-                if (col != null) prop.SetValue(item, row[col.ColumnName]);
-            }
-
-            return item;
-        }
-
-        private bool CheckPrimaryKeys(in DataTable table)
+        private static bool CheckPrimaryKeys(in DataTable table)
         {
             return table.PrimaryKey.Count() > 0;
         }
@@ -86,7 +24,7 @@ namespace EmulatedStorage
             if (CheckPrimaryKeys(in table))
             {
                 var row = table.Rows.Find(Id);
-                var item = row != null ? ConvRowToItem(row) : null;
+                var item = row != null ? TableRowConverter.ConvRowToItem(row) : null;
                 return item;
             }
             return null;
@@ -97,7 +35,7 @@ namespace EmulatedStorage
             List<Item> list = new();
             foreach (DataRow row in table.Rows)
             {
-                var item = ConvRowToItem(row);
+                var item = TableRowConverter.ConvRowToItem(row);
                 if (item != null) list.Add(item);
             }
             return list;
@@ -105,7 +43,7 @@ namespace EmulatedStorage
 
         public bool postItem(Item item)
         {
-            var newRow = ConvItemToRow(item);
+            var newRow = TableRowConverter.ConvItemToRow(item, in table);
             if (newRow != null)
             {
                 if (CheckPrimaryKeys(in table))
