@@ -4,8 +4,22 @@ using System.Reflection;
 
 namespace EmulatedStorage
 {
-    internal static class TableRowConverter
+    internal static class TableConverter
     {
+        public static void SetupTableColumns(ref DataTable table, Type modelType)
+        {
+            table.Columns.Clear();
+            var primaryKeys = new List<DataColumn>();
+            foreach (var prop in modelType.GetProperties())
+            {
+                var name = prop.Name;
+                var type = prop.PropertyType;
+                var col = table.Columns.Add(name, type);
+                if ((name == "Id" || name == "id") && type == typeof(int)) primaryKeys.Add(col);
+            }
+            table.PrimaryKey = primaryKeys.ToArray();
+        }
+
         public static bool CheckСomparability(Type type, in DataTable table)
         {
             return CheckСomparability(type, table.Columns);
@@ -30,7 +44,7 @@ namespace EmulatedStorage
 
         public static DataRow? ConvItemToRow(Item item, in DataTable table)
         {
-            if (!TableRowConverter.CheckСomparability(typeof(Item), table.Columns)) return null;
+            if (!TableConverter.CheckСomparability(typeof(Item), table.Columns)) return null;
 
             DataRow? row = table.NewRow();
 
@@ -45,7 +59,7 @@ namespace EmulatedStorage
 
         public static Item? ConvRowToItem(DataRow row)
         {
-            if (!TableRowConverter.CheckСomparability(typeof(Item), row.Table.Columns)) return null;
+            if (!TableConverter.CheckСomparability(typeof(Item), row.Table.Columns)) return null;
 
             Item? item = new();
 
