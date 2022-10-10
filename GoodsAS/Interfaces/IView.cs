@@ -10,7 +10,7 @@ namespace GoodsAS_Console.Interfaces
 
         Item? getItem();
         int? getItemId();
-        void startInteractionProcess();
+        void init();
         void viewResult(bool res);
         void viewTable(List<Item> itemsList, string? tableName = null);
     }

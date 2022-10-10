@@ -12,7 +12,7 @@ namespace GoodsAS_Console
 
             controller.setDataStorage(new EmulatedDataStorage());
             controller.setView(new ConsoleView());
-            controller.start();
+            controller.init();
         }
     }
 }

@@ -34,12 +34,12 @@ namespace GoodsAS_Console
             //printTable();
         }
 
-        public bool start()
+        public bool init()
         {
             if (view == null || dataStorage == null) return false;
             defaultFillTable();
             viewItemsTable();
-            view.startInteractionProcess();
+            view.init();
             return true;
         }
 

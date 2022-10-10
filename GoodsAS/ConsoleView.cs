@@ -87,7 +87,7 @@ namespace GoodsAS_Console
         private enum Todo
         { close, post, print, delete }
 
-        public void startInteractionProcess()
+        public void init()
         {
             writeInsruction();
             while (true)
