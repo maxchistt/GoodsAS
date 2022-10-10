@@ -1,26 +1,27 @@
 ﻿using Common.Interfaces;
 using Common.Models;
+using GoodsAS_Console.Interfaces;
 
 namespace GoodsAS_Console
 {
     internal class Contoller
     {
         private IDataStorage? dataStorage;
-        private ConsoleView? view;
+        private IView? view;
 
         public Contoller()
         { }
 
-        public Contoller(IDataStorage? dataStorage, ConsoleView view)
+        public Contoller(IDataStorage? dataStorage, IView view)
         {
             setDataStorage(dataStorage);
             setView(view);
         }
 
-        public void setView(ConsoleView view)
+        public void setView(IView view)
         {
             this.view = view;
-            this.view.onPrint += printItemsTable;
+            this.view.onViewTable += viewItemsTable;
             this.view.onPost += deleteItem;
             this.view.onDelete += postItem;
             //this.view.startInteractionProcess();
@@ -37,7 +38,7 @@ namespace GoodsAS_Console
         {
             if (view == null || dataStorage == null) return false;
             defaultFillTable();
-            printItemsTable();
+            viewItemsTable();
             view.startInteractionProcess();
             return true;
         }
@@ -71,7 +72,7 @@ namespace GoodsAS_Console
             {
                 res = dataStorage.deleteItem(id.Value);
             }
-            view.displayResult(res);
+            view.viewResult(res);
         }
 
         public void postItem()
@@ -82,16 +83,16 @@ namespace GoodsAS_Console
 
             bool res = item != null ? dataStorage.postItem(item) : false;
 
-            view.displayResult(res);
+            view.viewResult(res);
         }
 
-        public void printItemsTable()
+        public void viewItemsTable()
         {
             if (view == null || dataStorage == null) return;
 
             var itemsList = dataStorage.getItems();
 
-            view.printTable(itemsList, "Items");
+            view.viewTable(itemsList, "Items");
         }
     }
 }

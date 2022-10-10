@@ -1,11 +1,12 @@
 ﻿using Common.Models;
+using GoodsAS_Console.Interfaces;
 using System.Text.Json;
 
 namespace GoodsAS_Console
 {
-    internal class ConsoleView
+    internal class ConsoleView : IView
     {
-        public event Action onPrint = () => { Console.WriteLine("Printing table:"); };
+        public event Action onViewTable = () => { Console.WriteLine("Printing table:"); };
 
         public event Action onPost = () => { Console.WriteLine("Posting new item"); };
 
@@ -67,12 +68,12 @@ namespace GoodsAS_Console
             return item;
         }
 
-        public void displayResult(bool res)
+        public void viewResult(bool res)
         {
             Console.WriteLine(res ? "Success\n" : "Error\n");
         }
 
-        public void printTable(List<Item> itemsList, string? tableName = null)
+        public void viewTable(List<Item> itemsList, string? tableName = null)
         {
             if (tableName != null) Console.WriteLine(tableName);
             Console.WriteLine("---");
@@ -100,7 +101,7 @@ namespace GoodsAS_Console
                     switch ((Todo)Num)
                     {
                         case Todo.print:
-                            onPrint();
+                            onViewTable();
                             break;
 
                         case Todo.post:
