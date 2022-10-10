@@ -30,15 +30,12 @@ namespace GoodsAS_Console
                 var input = Console.ReadKey(true);
 
                 int Num;
-                bool isNum = int.TryParse(input.KeyChar.ToString(), out Num);
 
-                if (isNum)
+                if (int.TryParse(input.KeyChar.ToString(), out Num) && Enum.IsDefined(typeof(Todo), Num))
                 {
-                    bool exists = Enum.IsDefined(typeof(Todo), Num);
-                    if (exists && controller != null)
+                    if (controller != null)
                     {
-                        Todo todo = (Todo)Num;
-                        switch (todo)
+                        switch ((Todo)Num)
                         {
                             case Todo.delete:
                                 controller.deleteItem();
@@ -53,7 +50,6 @@ namespace GoodsAS_Console
                                 break;
                         }
                     }
-                    else continue;
                 }
                 else if (input.Key == ConsoleKey.Enter || input.Key == ConsoleKey.Escape)
                 {
@@ -62,9 +58,7 @@ namespace GoodsAS_Console
                     if (input.Key == ConsoleKey.Enter || input.Key == ConsoleKey.Escape) return;
                     Console.WriteLine();
                     writeInsruction();
-                    continue;
                 }
-                else continue;
             }
         }
 
