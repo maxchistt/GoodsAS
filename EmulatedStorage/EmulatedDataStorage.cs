@@ -11,13 +11,13 @@ namespace EmulatedStorage
 
         public EmulatedDataStorage()
         {
-            SetupTableColumns();
+            SetupTableColumns(ref table, typeof(Item));
         }
 
-        private void SetupTableColumns()
+        private void SetupTableColumns(ref DataTable table, Type modelType)
         {
             var primaryKeys = new List<DataColumn>();
-            foreach (var prop in typeof(Item).GetProperties())
+            foreach (var prop in modelType.GetProperties())
             {
                 var name = prop.Name;
                 var type = prop.PropertyType;
@@ -27,12 +27,7 @@ namespace EmulatedStorage
             table.PrimaryKey = primaryKeys.ToArray();
         }
 
-        private bool CheckPrimaryKeys(ref DataTable table)
-        {
-            return table.PrimaryKey.Count() > 0;
-        }
-
-        private bool CheckСomparability(Type type, ref DataTable table)
+        private bool CheckСomparability(Type type, in DataTable table)
         {
             var cols = table.Columns;
 
@@ -53,7 +48,7 @@ namespace EmulatedStorage
 
         private DataRow? ConvItemToRow(Item item)
         {
-            if (!CheckСomparability(typeof(Item), ref table)) return null;
+            if (!CheckСomparability(typeof(Item), in table)) return null;
 
             DataRow? row = table.NewRow();
 
@@ -68,7 +63,7 @@ namespace EmulatedStorage
 
         private Item? ConvRowToItem(DataRow row)
         {
-            if (!CheckСomparability(typeof(Item), ref table)) return null;
+            if (!CheckСomparability(typeof(Item), in table)) return null;
 
             Item? item = new();
 
@@ -81,9 +76,14 @@ namespace EmulatedStorage
             return item;
         }
 
+        private bool CheckPrimaryKeys(in DataTable table)
+        {
+            return table.PrimaryKey.Count() > 0;
+        }
+
         public Item? getItemById(int Id)
         {
-            if (CheckPrimaryKeys(ref table))
+            if (CheckPrimaryKeys(in table))
             {
                 var row = table.Rows.Find(Id);
                 var item = row != null ? ConvRowToItem(row) : null;
@@ -108,7 +108,7 @@ namespace EmulatedStorage
             var newRow = ConvItemToRow(item);
             if (newRow != null)
             {
-                if (CheckPrimaryKeys(ref table))
+                if (CheckPrimaryKeys(in table))
                 {
                     var exitingRow = table.Rows.Find(item.Id);
                     if (exitingRow != null)
@@ -135,7 +135,7 @@ namespace EmulatedStorage
 
         public bool deleteItem(int Id)
         {
-            if (CheckPrimaryKeys(ref table))
+            if (CheckPrimaryKeys(in table))
             {
                 var row = table.Rows.Find(Id);
                 if (row != null)
