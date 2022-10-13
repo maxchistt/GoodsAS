@@ -25,7 +25,7 @@ namespace EmulatedStorage
             if (CheckPrimaryKeys(in table))
             {
                 var row = table.Rows.Find(Id);
-                var item = row != null ? TableConverter.ConvRowToItem(row) : null;
+                var item = row != null ? TableConverter.ConvRowToItem<Item>(row) : null;
                 return item;
             }
             return null;
@@ -36,7 +36,7 @@ namespace EmulatedStorage
             List<Item> list = new();
             foreach (DataRow row in table.Rows)
             {
-                var item = TableConverter.ConvRowToItem(row);
+                var item = TableConverter.ConvRowToItem<Item>(row);
                 if (item != null) list.Add(item);
             }
             return list;
@@ -44,7 +44,7 @@ namespace EmulatedStorage
 
         public bool postItem(Item item)
         {
-            var newRow = TableConverter.ConvItemToRow(item, in table);
+            var newRow = TableConverter.ConvItemToRow<Item>(item, in table);
             if (newRow != null)
             {
                 if (CheckPrimaryKeys(in table))

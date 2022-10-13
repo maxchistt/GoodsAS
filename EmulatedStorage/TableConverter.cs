@@ -1,5 +1,4 @@
-﻿using Common.Models;
-using System.Data;
+﻿using System.Data;
 using System.Reflection;
 
 namespace EmulatedStorage
@@ -42,9 +41,10 @@ namespace EmulatedStorage
             }
         }
 
-        public static DataRow? ConvItemToRow(Item item, in DataTable table)
+        public static DataRow? ConvItemToRow<T>(T item, in DataTable table)
         {
-            if (!TableConverter.CheckСomparability(typeof(Item), table.Columns)) return null;
+            if (!TableConverter.CheckСomparability(typeof(T), table.Columns)) return null;
+            if (item == null) return null;
 
             DataRow? row = table.NewRow();
 
@@ -57,13 +57,13 @@ namespace EmulatedStorage
             return row;
         }
 
-        public static Item? ConvRowToItem(DataRow row)
+        public static T? ConvRowToItem<T>(DataRow row) where T : class, new()
         {
-            if (!TableConverter.CheckСomparability(typeof(Item), row.Table.Columns)) return null;
+            if (!TableConverter.CheckСomparability(typeof(T), row.Table.Columns)) return null;
 
-            Item? item = new();
+            T? item = new T();
 
-            foreach (PropertyInfo prop in typeof(Item).GetProperties())
+            foreach (PropertyInfo prop in typeof(T).GetProperties())
             {
                 var col = row.Table.Columns[prop.Name];
                 if (col != null) prop.SetValue(item, row[col.ColumnName]);
