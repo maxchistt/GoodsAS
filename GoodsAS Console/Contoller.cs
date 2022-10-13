@@ -22,8 +22,8 @@ namespace GoodsAS_Console
         {
             this.view = view;
             this.view.onViewTable += viewItemsTable;
-            this.view.onPost += deleteItem;
-            this.view.onDelete += postItem;
+            this.view.onPost += postItem;
+            this.view.onDelete += deleteItem;
             //this.view.startInteractionProcess();
         }
 
