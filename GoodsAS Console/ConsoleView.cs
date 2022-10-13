@@ -8,6 +8,8 @@ namespace GoodsAS_Console
     {
         public event Action onViewTable = () => { Console.WriteLine("Printing table:"); };
 
+        public event Action onFindOne = () => { Console.WriteLine("Finding one:"); };
+
         public event Action onPost = () => { Console.WriteLine("Posting new item"); };
 
         public event Action onDelete = () => { Console.WriteLine("Deleting item"); };
@@ -85,7 +87,7 @@ namespace GoodsAS_Console
         }
 
         private enum Todo
-        { close, post, print, delete }
+        { close, find, print, post, delete }
 
         public void init()
         {
@@ -108,6 +110,10 @@ namespace GoodsAS_Console
                             onPost();
                             break;
 
+                        case Todo.find:
+                            onFindOne();
+                            break;
+
                         case Todo.delete:
                             onDelete();
                             break;
@@ -128,8 +134,9 @@ namespace GoodsAS_Console
         {
             string text = "Enter keys for next actions:\n";
 
-            text += $"To post item      {(int)Todo.post}\n";
+            text += $"To find one       {(int)Todo.find}\n";
             text += $"To print table    {(int)Todo.print}\n";
+            text += $"To post item      {(int)Todo.post}\n";
             text += $"To delete item    {(int)Todo.delete}\n";
             text += $"To close          Esc\\Enter\n";
 

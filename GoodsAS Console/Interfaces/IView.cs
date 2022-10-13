@@ -6,6 +6,7 @@ namespace GoodsAS_Console.Interfaces
     {
         event Action onDelete;
         event Action onPost;
+        event Action onFindOne;
         event Action onViewTable;
 
         Item? getItem();

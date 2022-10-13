@@ -23,6 +23,7 @@ namespace GoodsAS_Console
             this.view = view;
             this.view.onViewTable += viewItemsTable;
             this.view.onPost += postItem;
+            this.view.onFindOne += findOne;
             this.view.onDelete += deleteItem;
             //this.view.startInteractionProcess();
         }
@@ -84,6 +85,25 @@ namespace GoodsAS_Console
             bool res = item != null ? dataStorage.postItem(item) : false;
 
             view.viewResult(res);
+        }
+
+        public void findOne()
+        {
+            if (view == null || dataStorage == null) return;
+
+            int? id = view.getItemId();
+
+            bool res = false;
+            if (id != null)
+            {
+                var finded = dataStorage.getItemById(id.Value);
+                if (finded != null)
+                {
+                    view.viewTable(new() { finded }, "Finded:");
+                    res = true;
+                }
+            }
+            if (!res) view.viewResult(false);
         }
 
         public void viewItemsTable()
