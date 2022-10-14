@@ -12,17 +12,17 @@ namespace EmulatedStorage
         public EmulatedDataStorage()
         {
             table = dataSet.Tables.Add("Items");
-            TableConverter.SetupTableColumns(ref table, typeof(Item));
+            TableConverter.SetupTableColumns(table, typeof(Item));
         }
 
-        private static bool CheckPrimaryKeys(in DataTable table)
+        private static bool CheckPrimaryKeys(DataTable table)
         {
             return table.PrimaryKey.Count() > 0;
         }
 
         public Item? getItemById(int Id)
         {
-            if (CheckPrimaryKeys(in table))
+            if (CheckPrimaryKeys(table))
             {
                 var row = table.Rows.Find(Id);
                 var item = row != null ? TableConverter.ConvRowToItem<Item>(row) : null;
@@ -44,10 +44,10 @@ namespace EmulatedStorage
 
         public bool postItem(Item item)
         {
-            var newRow = TableConverter.ConvItemToRow<Item>(item, in table);
+            var newRow = TableConverter.ConvItemToRow<Item>(item, table);
             if (newRow != null)
             {
-                if (CheckPrimaryKeys(in table))
+                if (CheckPrimaryKeys(table))
                 {
                     var exitingRow = table.Rows.Find(item.Id);
                     if (exitingRow != null)
@@ -74,7 +74,7 @@ namespace EmulatedStorage
 
         public bool deleteItem(int Id)
         {
-            if (CheckPrimaryKeys(in table))
+            if (CheckPrimaryKeys(table))
             {
                 var row = table.Rows.Find(Id);
                 if (row != null)

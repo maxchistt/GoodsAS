@@ -5,7 +5,7 @@ namespace EmulatedStorage
 {
     internal static class TableConverter
     {
-        public static void SetupTableColumns(ref DataTable table, Type modelType)
+        public static void SetupTableColumns(DataTable table, Type modelType)
         {
             table.Columns.Clear();
             var primaryKeys = new List<DataColumn>();
@@ -19,16 +19,11 @@ namespace EmulatedStorage
             table.PrimaryKey = primaryKeys.ToArray();
         }
 
-        public static bool CheckСomparability(Type type, in DataTable table)
+        public static bool CheckСomparability(Type type, DataTable table)
         {
-            return CheckСomparability(type, table.Columns);
-        }
-
-        public static bool CheckСomparability(Type type, DataColumnCollection cols)
-        {
-            if (cols.Count == type.GetProperties().Count())
+            if (table.Columns.Count == type.GetProperties().Count())
             {
-                foreach (DataColumn col in cols)
+                foreach (DataColumn col in table.Columns)
                 {
                     var prop = type.GetProperty(col.ColumnName);
                     if (prop == null || prop.PropertyType != col.DataType) return false;
@@ -41,10 +36,9 @@ namespace EmulatedStorage
             }
         }
 
-        public static DataRow? ConvItemToRow<T>(T item, in DataTable table)
+        public static DataRow? ConvItemToRow<T>(T item, DataTable table)
         {
-            if (!TableConverter.CheckСomparability(typeof(T), table.Columns)) return null;
-            if (item == null) return null;
+            if (item == null || !TableConverter.CheckСomparability(typeof(T), table)) return null;
 
             DataRow? row = table.NewRow();
 
@@ -59,7 +53,7 @@ namespace EmulatedStorage
 
         public static T? ConvRowToItem<T>(DataRow row) where T : class, new()
         {
-            if (!TableConverter.CheckСomparability(typeof(T), row.Table.Columns)) return null;
+            if (!TableConverter.CheckСomparability(typeof(T), row.Table)) return null;
 
             T? item = new T();
 
