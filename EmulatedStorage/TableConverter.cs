@@ -36,7 +36,7 @@ namespace EmulatedStorage
             }
         }
 
-        public static DataRow? ConvItemToRow<T>(T item, DataTable table)
+        public static DataRow? TryConvItemToRow<T>(T item, DataTable table)
         {
             if (item == null || !TableConverter.CheckСomparability(typeof(T), table)) return null;
 
@@ -51,7 +51,7 @@ namespace EmulatedStorage
             return row;
         }
 
-        public static T? ConvRowToItem<T>(DataRow row) where T : class, new()
+        public static T? TryConvRowToItem<T>(DataRow row) where T : class, new()
         {
             if (!TableConverter.CheckСomparability(typeof(T), row.Table)) return null;
 
