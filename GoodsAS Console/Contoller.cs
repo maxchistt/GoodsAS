@@ -31,35 +31,15 @@ namespace GoodsAS_Console
         public void setDataStorage(IDataStorage? dataStorage)
         {
             this.dataStorage = dataStorage;
-            //defaultFillTable();
             //printTable();
         }
 
         public bool init()
         {
             if (view == null || dataStorage == null) return false;
-            defaultFillTable();
             viewItemsTable();
             view.init();
             return true;
-        }
-
-        private void defaultFillTable()
-        {
-            if (dataStorage == null) return;
-
-            for (int i = 0; i < 5; i++)
-            {
-                Item item = new()
-                {
-                    Id = i,
-                    Name = "Product" + i,
-                    Description = "Description" + i,
-                    Category = "ProductType" + i,
-                    Cost = 100 + i
-                };
-                dataStorage.postItem(item);
-            }
         }
 
         public void deleteItem()

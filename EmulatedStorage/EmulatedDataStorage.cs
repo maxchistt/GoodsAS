@@ -13,6 +13,25 @@ namespace EmulatedStorage
         {
             table = dataSet.Tables.Add("Items");
             TableConverter.SetupTableColumns(table, typeof(Item));
+            defaultFillTable();
+        }
+
+        private void defaultFillTable()
+        {
+            if (table == null) return;
+
+            for (int i = 0; i < 5; i++)
+            {
+                Item item = new()
+                {
+                    Id = i,
+                    Name = "Product" + i,
+                    Description = "Description" + i,
+                    Category = "ProductType" + i,
+                    Cost = 100 + i
+                };
+                postItem(item);
+            }
         }
 
         private static bool CheckPrimaryKeys(DataTable table)
