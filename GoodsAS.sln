@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Common\Common.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EmulatedStorage", "EmulatedStorage\EmulatedStorage.csproj", "{73FE4E86-531D-4D8A-8B2D-3FF018C399A1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseStorage", "DatabaseStorage\DatabaseStorage.csproj", "{874F8A67-9B99-472B-A7CB-7D8A3090BE7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatabaseStorageSQL", "DatabaseStorageSQL\DatabaseStorageSQL.csproj", "{874F8A67-9B99-472B-A7CB-7D8A3090BE7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

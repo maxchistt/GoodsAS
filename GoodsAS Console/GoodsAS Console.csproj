@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj" />
-    <ProjectReference Include="..\DatabaseStorage\DatabaseStorage.csproj" />
+    <ProjectReference Include="..\DatabaseStorageSQL\DatabaseStorageSQL.csproj" />
     <ProjectReference Include="..\EmulatedStorage\EmulatedStorage.csproj" />
   </ItemGroup>
 

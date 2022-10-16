@@ -3,20 +3,20 @@ using Common.Models;
 using System.Configuration;
 using System.Data.SqlClient;
 
-namespace DatabaseStorage
+namespace DatabaseStorageSQL
 {
-    public class DbStorage : IDataStorage
+    public class DbStorageSQL : IDataStorage
     {
         private string connectionString;
 
-        public DbStorage(string connectionString)
+        public DbStorageSQL(string connectionString)
         {
             this.connectionString = connectionString;
             testConnection();
             ensureItemsTableCreated();
         }
 
-        public DbStorage() : this(getConnectionStringFromConfig())
+        public DbStorageSQL() : this(getConnectionStringFromConfig())
         {
         }
 

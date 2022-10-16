@@ -1,5 +1,5 @@
 ﻿using EmulatedStorage;
-using DatabaseStorage;
+using DatabaseStorageSQL;
 
 namespace GoodsAS_Console
 {
@@ -12,7 +12,7 @@ namespace GoodsAS_Console
         {
             controller = new Contoller();
 
-            controller.setDataStorage(realDb ? new DbStorage() : new EmulatedDataStorage());
+            controller.setDataStorage(realDb ? new DbStorageSQL() : new EmulatedDataStorage());
             controller.setView(new ConsoleView());
             controller.init();
         }

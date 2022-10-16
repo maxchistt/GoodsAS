@@ -1,6 +1,6 @@
 ﻿using System.Data.SqlClient;
 
-namespace DatabaseStorage
+namespace DatabaseStorageSQL
 {
     internal static class Parser
     {
